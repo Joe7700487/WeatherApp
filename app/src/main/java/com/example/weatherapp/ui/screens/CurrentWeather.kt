@@ -1,14 +1,12 @@
 package com.example.weatherapp.ui.screens
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,8 +24,12 @@ fun CurrentWeather(name: String, modifier: Modifier = Modifier) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
-            modifier = Modifier.padding(8.dp).border(1.dp, MaterialTheme.colorScheme.primary).padding(8.dp)
+            modifier = Modifier.fillMaxSize()
         ) {
+            Image(
+                painter = painterResource(R.drawable.cloud),
+                contentDescription = "cloud",
+                modifier = Modifier.size(100.dp))
             Text(
                 text = "partly cloudy",
                 modifier = modifier
