@@ -1,5 +1,9 @@
 package com.example.weatherapp.ui.screens
 
+import android.content.ContentValues.TAG
+import android.os.Build
+import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,41 +13,53 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.weatherapp.MainViewModel
 import com.example.weatherapp.R
 import com.example.weatherapp.ui.theme.WeatherAppTheme
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun CurrentWeather(name: String, modifier: Modifier = Modifier) {
+fun CurrentWeather(mainViewModel: MainViewModel, modifier: Modifier = Modifier) {
+
+    val weather by mainViewModel.weather.collectAsState()
     Row (Modifier.padding(all = 8.dp)) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxSize()
         ) {
-            Image(
-                painter = painterResource(R.drawable.cloud),
-                contentDescription = "cloud",
-                modifier = Modifier.size(100.dp))
+            weather?.current?.image?.let {
+                Image(
+                    painter = painterResource(it),
+                    contentDescription = weather?.current?.condition.toString(),
+                    modifier = Modifier.size(100.dp))
+            }
             Text(
-                text = "partly cloudy",
+                text = weather?.current?.condition.toString(),
                 modifier = modifier
             )
             Text(
-                text = "20°",
+                text = weather?.current?.temperature.toString() + "°",
                 modifier = modifier
             )
             Text(
-                text = "Rain Amount 0%",
+                text = weather?.current?.precipitationType.toString(),
                 modifier = modifier
             )
             Text(
-                text = "SSW 13 km/h",
+                text = weather?.current?.windSpeed.toString() + "km/h",
+                modifier = modifier
+            )
+            Text(
+                text = weather?.current?.windDirection.toString(),
                 modifier = modifier
             )
         }

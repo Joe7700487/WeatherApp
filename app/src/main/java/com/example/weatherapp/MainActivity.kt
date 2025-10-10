@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -33,12 +34,16 @@ import com.example.weatherapp.ui.theme.WeatherAppTheme
 
 
 class MainActivity : ComponentActivity() {
+
+    private val mainViewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
         setContent {
             WeatherAppTheme {
-                DisplayUI()
+                DisplayUI(mainViewModel)
             }
         }
     }
@@ -46,7 +51,7 @@ class MainActivity : ComponentActivity() {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun DisplayUI () {
+    fun DisplayUI (mainViewModel: MainViewModel) {
         val navController = rememberNavController()
         var selectedIndex by remember {mutableIntStateOf(0)}
 
@@ -112,10 +117,10 @@ class MainActivity : ComponentActivity() {
             )
             {
                 composable(route = "currentweather") {
-                    CurrentWeather("")
+                    CurrentWeather(mainViewModel)
                 }
                 composable(route = "dailyforecast") {
-                    DailyForecast("hello")
+                    DailyForecast(mainViewModel)
                 }
             }
         }
