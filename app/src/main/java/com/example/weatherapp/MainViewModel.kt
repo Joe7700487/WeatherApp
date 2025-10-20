@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.models.Current
 import com.example.weatherapp.models.Forecast
+import com.example.weatherapp.models.Location
 import com.example.weatherapp.models.Weather
 import com.example.weatherapp.services.WeatherService
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,7 +26,13 @@ class MainViewModel : ViewModel() {
 
     init {
 
+
         val today = Weather(
+            Location(
+                name = "Halifax",
+                country = "Canada",
+                localtime = "123"
+            ),
             Current(
                 image = R.drawable.cloud,
                 condition = "Cloudy",
