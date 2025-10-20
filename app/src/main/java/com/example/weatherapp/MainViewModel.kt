@@ -2,20 +2,29 @@ package com.example.weatherapp
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.models.Current
 import com.example.weatherapp.models.Forecast
 import com.example.weatherapp.models.Weather
+import com.example.weatherapp.services.WeatherService
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.time.LocalDate
 
 @RequiresApi(Build.VERSION_CODES.O)
 class MainViewModel : ViewModel() {
     private val _weather = MutableStateFlow<Weather?>(null)
-    public val weather = _weather.asStateFlow()
+    val weather = _weather.asStateFlow()
 
     init {
+
         val today = Weather(
             Current(
                 image = R.drawable.cloud,

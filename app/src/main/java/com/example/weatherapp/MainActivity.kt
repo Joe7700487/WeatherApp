@@ -64,7 +64,7 @@ class MainActivity : ComponentActivity() {
                         titleContentColor = MaterialTheme.colorScheme.primary
                     ),
                     title = {
-                        Text("My Android App")
+                        Text("Halifax, Nova Scotia")
                     }
                 )
             },
