@@ -1,6 +1,7 @@
 package com.example.weatherapp.services
 
 import com.example.weatherapp.models.Current
+import com.example.weatherapp.models.Weather
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -14,6 +15,6 @@ interface WeatherService {
         @Query("days") days: Int = 3,
         @Query("aqi") aqi: String = "no",
         @Query("alerts") alerts: String = "no"
-    ): Response<Current>
+    ): Weather
 
 }

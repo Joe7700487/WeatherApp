@@ -77,7 +77,7 @@ class MainActivity : ComponentActivity() {
                     NavigationBarItem(
                         icon = {
                             Icon (
-                                painter = painterResource(R.drawable.clock),
+                                painter = painterResource(R.drawable.current),
                                 contentDescription = "current Weather"
                             )
                         },
@@ -93,7 +93,7 @@ class MainActivity : ComponentActivity() {
                     NavigationBarItem(
                         icon = {
                             Icon (
-                                painter = painterResource(R.drawable.daily),
+                                painter = painterResource(R.drawable.forecast),
                                 contentDescription = "dailyforecast"
                             )
                         },

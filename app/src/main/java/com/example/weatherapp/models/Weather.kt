@@ -9,7 +9,6 @@ data class Weather (
     val forecast: List<Forecast>
 )
 
-
 data class Location (
     val name: String,
     val country: String,
