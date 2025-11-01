@@ -36,12 +36,10 @@ fun CurrentWeather(mainViewModel: MainViewModel, modifier: Modifier = Modifier) 
             verticalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxSize()
         ) {
-            weather?.current?.image?.let {
-                Image(
-                    painter = painterResource(it),
-                    contentDescription = weather?.current?.condition.toString(),
-                    modifier = Modifier.size(100.dp))
-            }
+            Text (
+                text = weather?.current?.condition?.icon.toString(),
+                modifier = modifier
+            )
             Text(
                 text = weather?.current?.condition.toString(),
                 modifier = modifier
@@ -50,10 +48,10 @@ fun CurrentWeather(mainViewModel: MainViewModel, modifier: Modifier = Modifier) 
                 text = weather?.current?.temperature.toString() + "°",
                 modifier = modifier
             )
-            Text(
-                text = weather?.current?.precipitationType.toString(),
-                modifier = modifier
-            )
+//            Text(
+//                text = weather?.current?.precipitationType.toString(),
+//                modifier = modifier
+//            )
             Text(
                 text = weather?.current?.windSpeed.toString() + "km/h",
                 modifier = modifier

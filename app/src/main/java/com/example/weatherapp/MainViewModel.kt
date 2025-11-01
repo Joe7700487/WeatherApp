@@ -1,14 +1,18 @@
 package com.example.weatherapp
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.weatherapp.models.Condition
 import com.example.weatherapp.models.Current
+import com.example.weatherapp.models.Day
 import com.example.weatherapp.models.Forecast
+import com.example.weatherapp.models.ForecastDay
 import com.example.weatherapp.models.Location
 import com.example.weatherapp.models.Weather
 import com.example.weatherapp.services.WeatherService
@@ -24,66 +28,97 @@ class MainViewModel : ViewModel() {
     private val _weather = MutableStateFlow<Weather?>(null)
     val weather = _weather.asStateFlow()
 
+    // Retrofit instance
+    val retrofit: Retrofit = Retrofit.Builder()
+        .baseUrl("https://api.weatherapi.com")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    val weatherService: WeatherService = retrofit.create(WeatherService::class.java)
+
     init {
+        viewModelScope.launch {
+            try {
+                val weather = weatherService.getCurrentWeather()
+                _weather.value = weather
+            } catch (e: Exception) {
+                Log.e("MainViewModel", "Error fetching weather data", e)
 
-
-        val today = Weather(
-            Location(
-                name = "Halifax",
-                country = "Canada",
-                localtime = "123"
-            ),
-            Current(
-                image = R.drawable.cloud,
-                condition = "Cloudy",
-                temperature = 5,
-                precipitationType = "rain",
-                precipitationAmount = 5,
-                windSpeed = 5,
-                windDirection = "W",
-            ),
-            forecast = listOf(
-                Forecast (
-                    date = LocalDate.of(2025, 1, 15),
-                    temperatureLow = 5,
-                    temperatureHigh = 40,
-                    image = R.drawable.cloud,
-                    condition = "Cloudy",
-                    precipitationType = "rain",
-                    precipitationAmount = 4,
-                    precipitationProbability = 85,
-                    windSpeed = 15,
-                    windDirection = "NW",
-                    humidity = 5
-                ),
-                Forecast (
-                    date = LocalDate.of(2025, 1, 16),
-                    temperatureLow = 25,
-                    temperatureHigh = 45,
-                    image = R.drawable.sun,
-                    condition = "Sunny",
-                    precipitationType = "rain",
-                    precipitationAmount = 0,
-                    precipitationProbability = 5,
-                    windSpeed = 5,
-                    windDirection = "E",
-                    humidity = 20
-                ),
-                Forecast (
-                    date = LocalDate.of(2025, 1, 17),
-                    temperatureLow = 5,
-                    temperatureHigh = 6,
-                    image = R.drawable.rain,
-                    condition = "raining",
-                    precipitationType = "rain",
-                    precipitationAmount = 20,
-                    precipitationProbability = 100,
-                    windSpeed = 10,
-                    windDirection = "N",
-                    humidity = 100
-                )
-            )
-        )
-        _weather.value = today
+            }
+        }
+//        val today = Weather(
+//            Location(
+//                name = "Halifax",
+//                country = "Canada",
+//                localtime = "123"
+//            ),
+//            Current(
+//                Condition(
+//                    icon = "https://cdn.weatherapi.com/weather/64x64/day/113.png",
+//                    text = "cloudy",
+//                ),
+//                temperature = 5.0,
+////                precipitationType = "rain",
+//                precipitationAmount = 5.0,
+//                windSpeed = 5.0,
+//                windDirection = "W",
+//            ),
+//            Forecast(
+//                forecastDay = listOf(
+//                    ForecastDay(
+//                        date = "2025, 1, 15",
+//                        Day(
+//                            precipitationAmount = 5.1,
+//                            precipitationProbability = 6.0,
+//                            windSpeed = 7.0,
+//                            temperatureHigh = 8.0,
+//                            temperatureLow = 9.0,
+//                            Condition (
+//                                icon = "https://cdn.weatherapi.com/weather/64x64/day/113.png",
+//                                text = "cloudy",
+//                            )
+//                        )
+////                    precipitationType = "rain",
+////                    windDirection = "NW",
+////                    humidity = 5
+//                    ),
+//                    ForecastDay(
+//                        date = "2025, 1, 15",
+//                        Day(
+//                            precipitationAmount = 5.1,
+//                            precipitationProbability = 6.0,
+//                            windSpeed = 7.0,
+//                            temperatureHigh = 8.0,
+//                            temperatureLow = 9.0,
+//                            Condition (
+//                                icon = "https://cdn.weatherapi.com/weather/64x64/day/113.png",
+//                                text = "cloudy",
+//                            )
+//                        )
+////                    precipitationType = "rain",
+////                    windDirection = "NW",
+////                    humidity = 5
+//                    ),
+//                    ForecastDay(
+//                        date = "2025, 1, 15",
+//                        Day(
+//                            precipitationAmount = 5.1,
+//                            precipitationProbability = 6.0,
+//                            windSpeed = 7.0,
+//                            temperatureHigh = 8.0,
+//                            temperatureLow = 9.0,
+//                            Condition (
+//                                icon = "https://cdn.weatherapi.com/weather/64x64/day/113.png",
+//                                text = "cloudy",
+//                            )
+//                        )
+////                    precipitationType = "rain",
+////                    windDirection = "NW",
+////                    humidity = 5
+//                    ),
+//                )
+//            )
+//        )
+        _weather.value = weather.value
     }
 }
