@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.example.weatherapp.MainViewModel
 import com.example.weatherapp.R
 import com.example.weatherapp.ui.theme.WeatherAppTheme
@@ -46,9 +47,10 @@ fun DailyForecast(mainViewModel: MainViewModel, modifier: Modifier = Modifier) {
                 modifier = Modifier.padding(8.dp).border(1.dp, MaterialTheme.colorScheme.primary).padding(8.dp)
 
             ) {
-                Text (
-                    text = day1?.day?.condition?.icon.toString(),
-                    modifier = modifier
+                AsyncImage(
+                    model = "https:${day1?.day?.condition?.icon}",
+                    contentDescription = day1?.day?.condition?.icon.toString(),
+                    Modifier.size(128.dp)
                 )
                 Text(
                     text = day1?.date.toString(),
@@ -84,28 +86,29 @@ fun DailyForecast(mainViewModel: MainViewModel, modifier: Modifier = Modifier) {
                 modifier = Modifier.padding(8.dp).border(1.dp, MaterialTheme.colorScheme.primary).padding(8.dp)
 
             ) {
-                Text (
-                    text = day1?.day?.condition?.icon.toString(),
+                AsyncImage(
+                    model = "https:${day2?.day?.condition?.icon}",
+                    contentDescription = day2?.day?.condition?.icon.toString(),
+                    Modifier.size(128.dp)
+                )
+                Text(
+                    text = day2?.date.toString(),
                     modifier = modifier
                 )
                 Text(
-                    text = day1?.date.toString(),
+                    text = day2?.day?.temperatureHigh.toString() + "° - " + day2?.day?.temperatureLow.toString() + "°",
                     modifier = modifier
                 )
                 Text(
-                    text = day1?.day?.temperatureHigh.toString() + "° - " + day1?.day?.temperatureLow.toString() + "°",
+                    text = day2?.day?.condition?.text.toString(),
                     modifier = modifier
                 )
                 Text(
-                    text = day1?.day?.condition?.text.toString(),
+                    text = day2?.day?.precipitationProbability.toString() + "% " + day2?.day?.precipitationAmount.toString() + "mm",
                     modifier = modifier
                 )
                 Text(
-                    text = day1?.day?.precipitationProbability.toString() + "% " + day1?.day?.precipitationAmount.toString() + "mm",
-                    modifier = modifier
-                )
-                Text(
-                    text = day1?.day?.windSpeed.toString() + "km/h - ",
+                    text = day2?.day?.windSpeed.toString() + "km/h - ",
                     modifier = modifier
                 )
 //                Text(
@@ -121,28 +124,29 @@ fun DailyForecast(mainViewModel: MainViewModel, modifier: Modifier = Modifier) {
                 modifier = Modifier.padding(8.dp).border(1.dp, MaterialTheme.colorScheme.primary).padding(8.dp)
 
             ) {
-                Text (
-                    text = day1?.day?.condition?.icon.toString(),
+                AsyncImage(
+                    model = "https:${day3?.day?.condition?.icon}",
+                    contentDescription = day3?.day?.condition?.icon.toString(),
+                    Modifier.size(128.dp)
+                )
+                Text(
+                    text = day3?.date.toString(),
                     modifier = modifier
                 )
                 Text(
-                    text = day1?.date.toString(),
+                    text = day3?.day?.temperatureHigh.toString() + "° - " + day3?.day?.temperatureLow.toString() + "°",
                     modifier = modifier
                 )
                 Text(
-                    text = day1?.day?.temperatureHigh.toString() + "° - " + day1?.day?.temperatureLow.toString() + "°",
+                    text = day3?.day?.condition?.text.toString(),
                     modifier = modifier
                 )
                 Text(
-                    text = day1?.day?.condition?.text.toString(),
+                    text = day3?.day?.precipitationProbability.toString() + "% " + day3?.day?.precipitationAmount.toString() + "mm",
                     modifier = modifier
                 )
                 Text(
-                    text = day1?.day?.precipitationProbability.toString() + "% " + day1?.day?.precipitationAmount.toString() + "mm",
-                    modifier = modifier
-                )
-                Text(
-                    text = day1?.day?.windSpeed.toString() + "km/h - ",
+                    text = day3?.day?.windSpeed.toString() + "km/h - ",
                     modifier = modifier
                 )
 //                Text(

@@ -11,7 +11,7 @@ interface WeatherService {
     @GET("v1/forecast.json")
     suspend fun getCurrentWeather(
         @Query("key") apiKey: String = "b7e3965f31a3461bbd3182823251610 ",
-        @Query("q") location: String = "B3H",
+        @Query("q") location: String,
         @Query("days") days: Int = 3,
         @Query("aqi") aqi: String = "no",
         @Query("alerts") alerts: String = "no"

@@ -20,6 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
 import com.example.weatherapp.MainViewModel
 import com.example.weatherapp.R
 import com.example.weatherapp.ui.theme.WeatherAppTheme
@@ -36,12 +38,13 @@ fun CurrentWeather(mainViewModel: MainViewModel, modifier: Modifier = Modifier) 
             verticalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxSize()
         ) {
-            Text (
-                text = weather?.current?.condition?.icon.toString(),
-                modifier = modifier
+            AsyncImage(
+                model = "https:${weather?.current?.condition?.icon}",
+                contentDescription = weather?.current?.condition?.icon.toString(),
+                Modifier.size(128.dp)
             )
             Text(
-                text = weather?.current?.condition.toString(),
+                text = weather?.current?.condition?.text.toString(),
                 modifier = modifier
             )
             Text(
